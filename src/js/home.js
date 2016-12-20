@@ -5,7 +5,7 @@ class Persona {
 		if (true) {
 			//Como hemos dicho, let es la nueva forma de declarar variables de bloque, sólo existirán dentro del bloque que las contenga y no contaminará nunca nuestro código a su alrededor.
 			let miVar = "Hola mundo";
-			console.log('Valor de miVar: '+miVar);
+			console.log('Valor de miVar: ' + miVar);
 		}
 		//Como no esta dentro del ámbito dará undefined.
 		//console.log('Valor de miVar: '+miVar);
@@ -43,13 +43,32 @@ class Concat {
 	}
 }
 
+function hacerAlgoPromesa(tarea, time) {
+	function haciendoalgo(resolve, reject) {
+		//console.log('Hacer ' + tarea + ' que ocupa un tiempo...');
+		let myConcat = new Concat();
+		myConcat.concatBody('Hacer ' + tarea + ' que ocupa un tiempo...');
+		setTimeout(resolve, (1000 * time));
+	}
+	return new Promise(haciendoalgo);
+}
+
 $(document).ready(function () {
-	var Sergio = new Persona('Sergio', 22);
-	var myConcat = new Concat();
+	let Sergio = new Persona('Sergio', 22);
+	let myConcat = new Concat();
 	myConcat.concatBody('El nombre actual desde Sergio es: ' + Sergio.myName);
 
 	myConcat.concatBody('Método static llamado desde la misma clase: ' + Persona.miMetodo());
 	Sergio.myName = 'Carlos';
 	myConcat.concatBody('El nombre actual es: ' + Sergio.myName);
+
+	const MIVARIABLE = 1;
+	myConcat.concatBody('El valor de mi variables const (que tiene que asignarse en su declaración) es: ' + MIVARIABLE);
+	hacerAlgoPromesa('Tarea 1', 1)
+		.then(function () {
+			return hacerAlgoPromesa('Tarea 2', 2);
+		})
+		.then(() => hacerAlgoPromesa('Tarea 3', 3))
+		.then(() => hacerAlgoPromesa('Tarea 4', 4));
 
 });

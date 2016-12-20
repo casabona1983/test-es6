@@ -82,6 +82,16 @@ var Concat = function () {
 	return Concat;
 }();
 
+function hacerAlgoPromesa(tarea, time) {
+	function haciendoalgo(resolve, reject) {
+		//console.log('Hacer ' + tarea + ' que ocupa un tiempo...');
+		var myConcat = new Concat();
+		myConcat.concatBody('Hacer ' + tarea + ' que ocupa un tiempo...');
+		setTimeout(resolve, 1000 * time);
+	}
+	return new Promise(haciendoalgo);
+}
+
 $(document).ready(function () {
 	var Sergio = new Persona('Sergio', 22);
 	var myConcat = new Concat();
@@ -90,4 +100,14 @@ $(document).ready(function () {
 	myConcat.concatBody('Método static llamado desde la misma clase: ' + Persona.miMetodo());
 	Sergio.myName = 'Carlos';
 	myConcat.concatBody('El nombre actual es: ' + Sergio.myName);
+
+	var MIVARIABLE = 1;
+	myConcat.concatBody('El valor de mi variables const (que tiene que asignarse en su declaración) es: ' + MIVARIABLE);
+	hacerAlgoPromesa('Tarea 1', 1).then(function () {
+		return hacerAlgoPromesa('Tarea 2', 2);
+	}).then(function () {
+		return hacerAlgoPromesa('Tarea 3', 3);
+	}).then(function () {
+		return hacerAlgoPromesa('Tarea 4', 4);
+	});
 });
