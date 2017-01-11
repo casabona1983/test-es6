@@ -1,7 +1,7 @@
 {
-  "name": "secretaria-pagina",
+  "name": "demo_es6",
   "version": "0.0.1",
-  "description": "Página individual secretaria",
+  "description": "Test ES6",
   "author": "Daniel Casabona Gomez <dcasabona@uoc.edu>",
   "license": "MIT",
   "devDependencies": {
