@@ -1,3 +1,7 @@
+import {
+	myindividual
+} from "./module.js";
+
 class Persona {
 	constructor(nombre, edad) {
 		this.nombre = nombre;
@@ -69,6 +73,6 @@ $(document).ready(function () {
 			return hacerAlgoPromesa('Tarea 2', 2);
 		})
 		.then(() => hacerAlgoPromesa('Tarea 3', 3))
-		.then(() => hacerAlgoPromesa('Tarea 4', 4));
-
+		.then(() => hacerAlgoPromesa('Tarea 4', 4))
+		.then(() => myindividual.add('Test para ver si funciona la importación de la instancia'));
 });

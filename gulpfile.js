@@ -5,8 +5,11 @@ var compass = require('gulp-compass');
 var cssnano = require('gulp-cssnano');
 var autoprefixer = require('gulp-autoprefixer');
 var rename = require("gulp-rename");
-var babel = require('gulp-babel');
+var babelify = require('babelify');
+var browserify = require('browserify');
 var bs = require('browser-sync').create();
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 
 
 gulp.task('traspaso-build', function () {
@@ -37,23 +40,26 @@ gulp.task('compass', function () {
     }));
 });
 
-gulp.task('minify-js', function () {
-  gulp.src(['src/js/**/*.js'])
-    .pipe(babel({
-      presets: ['es2015']
-    }))
-    /*.pipe(uglify({
+gulp.task('minify-js-2', function () {
+  return browserify('src/js/home.js')
+    .transform(babelify, {
+      presets: ["es2015"]
+    })
+    .bundle()
+    .pipe(source('home.js'))
+    .pipe(buffer())
+    .pipe(uglify({
       compress: {
         drop_console: true
       }
-    }))*/
+    }))
     .pipe(gulp.dest('build/js'));
 });
 
 gulp.task('watch', function () {
   gulp.watch(['src/lib/**', 'src/images/**', 'src/assets/**', 'src/individuales/**', 'src/index.html'], ['traspaso-build']);
   gulp.watch('src/sass/*.scss', ['compass']);
-  gulp.watch('src/js/**/*.js', ['minify-js']);
+  gulp.watch('src/js/**/*.js', ['minify-js-2']);
   gulp.watch("src/**/*.html").on('change', bs.reload);
 });
 
@@ -64,4 +70,4 @@ gulp.task('browser-sync', function () {
   });
 });
 
-gulp.task('default', ['traspaso-build', 'compass', 'minify-js', 'watch', 'browser-sync'], function () {});
+gulp.task('default', ['traspaso-build', 'compass', 'minify-js-2', 'watch', 'browser-sync'], function () {});
