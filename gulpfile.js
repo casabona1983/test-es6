@@ -50,7 +50,7 @@ gulp.task('minify-js-2', function () {
     .pipe(buffer())
     .pipe(uglify({
       compress: {
-        drop_console: true
+        /*drop_console: true*/
       }
     }))
     .pipe(gulp.dest('build/js'));

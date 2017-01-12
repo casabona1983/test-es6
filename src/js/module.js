@@ -4,7 +4,7 @@ class individual {
     }
     add(literal) {
         this.msg.push(literal);
-        $('#test-zone').append('<p>' + this.msg + '</p>');
+        $('#test-zone').append('<p>' + literal + '</p>');
     }
 }
 

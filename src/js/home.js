@@ -2,6 +2,18 @@ import {
 	myindividual
 } from "./module.js";
 
+import {
+	mydata
+} from "./data.js";
+
+let _ = require('lodash');
+
+_.mixin({
+	'moreMap': function (someParam) {
+		return _.partial(_.ary(_.pick, 2), _, someParam);
+	}
+});
+
 class Persona {
 	constructor(nombre, edad) {
 		this.nombre = nombre;
@@ -68,11 +80,22 @@ $(document).ready(function () {
 
 	const MIVARIABLE = 1;
 	myConcat.concatBody('El valor de mi variables const (que tiene que asignarse en su declaración) es: ' + MIVARIABLE);
-	hacerAlgoPromesa('Tarea 1', 1)
+
+	/*hacerAlgoPromesa('Tarea 1', 1)
 		.then(function () {
 			return hacerAlgoPromesa('Tarea 2', 2);
 		})
-		.then(() => hacerAlgoPromesa('Tarea 3', 3))
-		.then(() => hacerAlgoPromesa('Tarea 4', 4))
-		.then(() => myindividual.add('Test para ver si funciona la importación de la instancia'));
+		.then(() => myindividual.add('Test para ver si funciona la importación de la instancia'));*/
+
+	let myfilter = _.filter(mydata, function (o) {
+		return o.id <= 3;
+	});
+	console.log(myfilter);
+	myindividual.add('<b>Filtrados los 3 primeros (_.filter) </b><br />' + JSON.stringify(myfilter));
+
+	let mymap = _.map(mydata, 'first_name');
+	myindividual.add('<br /><b>Mapeo de User: (_.map)</b><br />' + JSON.stringify(mymap));
+
+	let myorder = _.map((_.orderBy(mydata, ['first_name'])), _.moreMap(['first_name', 'ip_address']));
+	myindividual.add('<br /><b>Mapeo de IP ordenada: (_orderBy && _.map)</b><br />'+JSON.stringify(myorder, null, 2));
 });
