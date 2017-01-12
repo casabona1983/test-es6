@@ -97,5 +97,5 @@ $(document).ready(function () {
 	myindividual.add('<br /><b>Mapeo de User: (_.map)</b><br />' + JSON.stringify(mymap));
 
 	let myorder = _.map((_.orderBy(mydata, ['first_name'])), _.moreMap(['first_name', 'ip_address']));
-	myindividual.add('<br /><b>Mapeo de IP ordenada: (_orderBy && _.map)</b><br />'+JSON.stringify(myorder, null, 2));
+	myindividual.add('<br /><b>Mapeo de IP ordenada: (_orderBy && _.map)</b><br />' + JSON.stringify(myorder, null, 2));
 });
